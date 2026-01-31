@@ -11,8 +11,9 @@ func Map(index *PageTracker) ([]string, error) {
 	if index.Next == "" {
 		return nil, fmt.Errorf("End of List")
 	}
-	s := index.Previous.(string)
-	rawData, err := getData(s)
+	fmt.Println(index.Next)
+
+	rawData, err := getData(index.Next)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +59,7 @@ func Mapb(index *PageTracker) ([]string, error) {
 func getData(url string) ([]byte, error) {
 	res, err := http.Get(url)
 	if err != nil {
-		return nil, fmt.Errorf("error retrieving locations: %w", err)
+		return nil, fmt.Errorf("error retrieving %s: %w", url, err)
 	}
 	defer res.Body.Close()
 
